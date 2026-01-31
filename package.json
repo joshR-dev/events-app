@@ -1,0 +1,8 @@
+{
+  "name": "berg-events",
+  "private": true,
+  "scripts": {
+    "typegen": "npm run typegen --prefix studio",
+    "typegen:watch": "npm run typegen -- --watch"
+  }
+}
