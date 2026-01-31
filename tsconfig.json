@@ -9,7 +9,7 @@
     "*.d.ts",
     ".graphqlrc.ts",
     ".react-router/types/**/*"
-  ],
+, "app/components/cart/cart-line-item"  ],
   "exclude": ["node_modules", "dist", "build", "packages/**/dist/**/*"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
