@@ -4,7 +4,8 @@ import {Suspense} from 'react';
 import {Image} from '@shopify/hydrogen';
 import {ProductItem} from '~/components/product/product-item';
 import { runQuery } from '~/lib/sanity/groqd-client';
-import { getProductBySlugQuery } from '~/lib/sanity/product/queries';
+import { getHomeQuery } from '~/lib/sanity/home/queries';
+import { Modules } from '~/components/modules/modules';
 
 export const meta: Route.MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -25,10 +26,10 @@ export async function loader(args: Route.LoaderArgs) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  */
 async function loadCriticalData({context}: Route.LoaderArgs) {
-  const product = await runQuery(getProductBySlugQuery, {parameters: {slug: "test-tshirt-product"}});
+  const home = await runQuery(getHomeQuery);
 
   return {
-    product
+    home
   };
 }
 
@@ -44,10 +45,18 @@ function loadDeferredData({context}: Route.LoaderArgs) {
 
 export default function Homepage() {
   const data = useLoaderData<typeof loader>();
-  const {product} = data;
+  const {home} = data;
+
   return (
     <div className="home">
-      {product?.title}
+      {home?.hero && (
+        <div className="hero">
+          <pre>{JSON.stringify(home.hero, null, 2)}</pre>
+        </div>
+      )}
+
+      {/* Render modules */}
+      <Modules modules={home?.modules} />
     </div>
   );
 }
