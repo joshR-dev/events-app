@@ -17,9 +17,6 @@ import {
 } from 'react-router'
 import {ClientOnly} from 'remix-utils/client-only'
 
-import {StudioRouteLoader} from '~/api-types/loaders/studio'
-import {getLocaleFromRequest, getPathWithLocale} from '~/lib/i18n'
-
 import studioStyles from './studio.css?url'
 
 /**
@@ -27,6 +24,13 @@ import studioStyles from './studio.css?url'
  * It does not inherit the main app's root layout or styles.
  * Only available in development mode via the /studio/* route.
  */
+
+
+export type StudioRouteLoader = {
+  basePath: string
+  dataset: string
+  projectId: string
+}
 
 export const meta: MetaFunction = () => [
   {
@@ -64,11 +68,7 @@ export async function loader({
   const projectId = env.SANITY_PROJECT_ID
   const dataset = env.SANITY_DATASET
 
-  const canAccessStudio =
-    process.env.NODE_ENV === 'development' ||
-    env.EMBEDDED_SANITY_STUDIO === 'true'
 
-  invariantResponse(canAccessStudio, 'Not Found', {status: 404})
 
   invariantResponse(
     projectId,
@@ -79,14 +79,8 @@ export async function loader({
     status: 500,
   })
 
-  const locale = getLocaleFromRequest(request)
-  const basePath = getPathWithLocale({
-    path: '/studio',
-    pathPrefix: locale.pathPrefix,
-  })
-
-  return {
-    basePath,
+    return {
+    basePath: "/studio",
     dataset,
     projectId,
   }

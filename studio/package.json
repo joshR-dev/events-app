@@ -2,7 +2,7 @@
   "name": "berg-events",
   "private": true,
   "version": "1.0.0",
-  "main": "package.json",
+  "type": "module",
   "license": "UNLICENSED",
   "scripts": {
     "dev": "sanity dev",
@@ -11,6 +11,11 @@
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
     "typegen": "sanity schema extract && sanity typegen generate"
+  },
+  "exports": {
+    ".": {
+      "default": "./index.ts"
+    }
   },
   "keywords": [
     "sanity"

@@ -19,6 +19,12 @@ export default async function handleRequest(
       checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
       storeDomain: context.env.PUBLIC_STORE_DOMAIN,
     },
+    connectSrc: [
+      '*.sanity.io',
+      'https://*.sanity.io',
+      'wss://*.sanity.io',
+      'https://sanity-cdn.com',
+    ],
   });
 
   const body = await renderToReadableStream(

@@ -2,6 +2,7 @@
   "name": "berg-events",
   "private": true,
   "scripts": {
+    "dev": "npm run codegen:studio && cd apps/storefront && npm run dev && cd -",
     "typegen": "npm run typegen --prefix studio",
     "typegen:watch": "npm run typegen -- --watch"
   }
